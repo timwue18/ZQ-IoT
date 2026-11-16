@@ -1,3 +1,3 @@
 ## Zusatzqualifikation Iot
 
-Projektgruppe: Justin, Tim, Robert, Fabius
+Projektgruppe: Justin, Tim, Robert, Fabius, TESTI
