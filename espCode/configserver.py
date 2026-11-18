@@ -23,7 +23,9 @@ def web_page():
 	<p><form method="post", action="submit", type="submit">
 	<p><label id="wlan_name">Bitte gib die SSID des Wlans ein: </label><input type="text" name="wlanName"></p>
 	<p><label id="wlan_password">Bitte gib das Wlan Passwort ein(Fall das Wlan keins hat, bitte freilassen): <input type="text" name="wlanPassword"</p>
-	<p><label id="mqtt_broker_ip">Bitte gib die IP des MQTT Brokers ein</label> <input type="test" name="brokerIP"></p>
+	<p><label id="mqtt_broker_ip">Bitte gib die IP des MQTT Brokers ein</label> <input type="text" name="brokerIP"></p>
+	<p><label id="mqtt_broker_sub">Bitte gib den Subscriber Pfad ein(Pumpe)</label> <input type="text" name="brokerSubscriber"></p>
+	<p><label id="mqtt_broker_pub">Bitte gib den Publish Pfad ein(Sensor)</label> <input type="text" name="brokerPublisher"></p>
 	<p><input type="submit" id="submit">senden</p>
 	</form>
 </html>"""
@@ -42,14 +44,14 @@ def startserver():
 		conn, addr = s.accept()
 		print('Got a connection from %s' % str(addr))
 		request = conn.recv(1024)
-		request = str(request)
+		request = str(request).replace("%2F", "/")
 		print('Content = %s' % request)
 		if "POST" in request:
 			print("Hello From Post request")
-			pattern=re.compile(r"wlanName=(.*)&wlanPassword=(.*)&brokerIP=(.*)'")
+			pattern=re.compile(r"wlanName=(.*)&wlanPassword=(.*)&brokerIP=(.*)&brokerSubscriber=(.*)&brokerPublisher=(.*)'")
 			match=pattern.search(request)
-			print(match.group(1), match.group(2), match.group(3))
-			config={"wlan": {"ssid": match.group(1).replace("+", " "), "password": match.group(2).replace("+", " ")}, "broker":{"IP": match.group(3)}}
+			print(match.group(1), match.group(2), match.group(3), match.group(4), match.group(5))
+			config={"wlan": {"ssid": match.group(1).replace("+", " "), "password": match.group(2).replace("+", " ")}, "broker":{"IP": match.group(3), "subscriber": match.group(4), "publisher": match.group(5)}}
 			f=open("config.json", "w")
 			json.dump(config,f)
 			f.close()
