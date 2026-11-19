@@ -2,18 +2,19 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {{
+  "main": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "node --watch index.js",
-    "start": "node index.js"
+    "dev": "node --watch index.ts",
+    "start": "node index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
   }
 }
