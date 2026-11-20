@@ -17,6 +17,8 @@ wlan.active(True)
 if not wlan.isconnected():
     config = "config.json"
     if config in os.listdir():
+        t=network.WLAN(network.WLAN.IF_AP)
+        t.active(False)
         print("Config found")
         f = open(config, "r")
         config = json.load(f)
